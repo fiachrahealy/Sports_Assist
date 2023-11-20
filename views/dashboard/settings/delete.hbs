@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Delete Team</title>
+        {{> imports path='../../../../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../../../../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" id="dash">
+                <div class="container" style="margin-top: 100px">
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <h2>Delete {{team.teamName}}?</h2>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <form class="form-signin" action="" method="POST">
+                                <div class="form-group">
+                                    <div class="formgroup">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" name="id" value="{{team._id}}">
+                                        <button class="button" style="width:100px; margin-right:20px" type="submit">Yes</button>
+                                        <button class="button" style="width:100px;" type="button">
+                                            <a style="color: white" href="/dashboard">No</a>
+                                        </button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

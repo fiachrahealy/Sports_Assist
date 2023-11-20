@@ -1,0 +1,151 @@
+.gymTable {
+	position: center;
+	width: 80%;
+	margin: auto;
+	height: 800px;
+	margin-top: 130px;
+	align-items: center;
+	text-align: center;
+}
+
+.gymFiller {
+	position: center;
+	width: 100%;
+	margin:auto;
+	height:1px;
+}
+
+.adminGym {
+	position: center;
+	width: 60%;
+	background-color: black;
+}
+
+#createWorkout {
+	position: center;
+	margin-top: 15px;
+}
+
+#prevWorkout {
+	position: center;
+	margin-top: 15px;
+}
+
+.gymDivisor {
+	position: center;
+	margin-left: 2.5%;
+	width: 95%;
+	height:3px;
+	background-color: #060606;
+}
+
+.gymHeader1 {
+	display: inline-block;
+	margin-left: 3%;
+	font-size:26px;
+	font-weight: bold;
+	color: black;
+}
+
+.gymHeader2 {
+	display: inline-block;
+	margin-left: 20%;
+	font-size: 26px;
+	font-weight: bold;
+	color: black;
+}
+
+#gymMain {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.gymExercise {
+	background-color: #CACACA;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 10px;
+}
+
+.exerciseButton {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 100px;
+	height: 100px;
+	padding: 10px 16px;
+	border-radius: 55px;
+	font-size: 30px;
+	text-align: center;
+	margin-left: 5%;
+	margin-right:auto;
+}
+
+.hiddenWorkout {
+	display: none;
+}
+
+.workoutCreator {
+	margin-top: 250px;
+}
+
+.gymFormPadding {
+	width:100%;
+	padding-top:20px;
+}
+
+#nutritionMain {
+	background-color: white;
+	text-align: center;
+	width: 70%;
+	height:70%;
+	position: center;
+	border: thin #DADADA solid;
+	padding-top:1px;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.macroNutrients {
+	background-color: #ACACBC;
+	width:70%;
+	height: 20%;
+	margin-left: 15%;
+}
+
+.macro {
+	width:33.3%;
+	height: 150%;
+	border-left: 2px;
+	border-style: solid;
+	border-color: #142D48;
+	background-color: #D5F0F7;
+	color: white;
+	float: left;
+	text-align: center;
+}
+
+.macroText {
+	font-size: 26px;
+	margin-top:5%;
+	color: #142D48;
+}
+
+.macroTextValue {
+	font-size: 36px;
+	margin-top:4%;
+	color: #142D48;
+}
+
+.hiddenDiv {
+	display: none;
+}
+
+#yourCals {
+	height:100px;
+	width:100%;
+}
+
+input {
+	text-align: center;
+}

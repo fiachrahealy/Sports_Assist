@@ -1,0 +1,312 @@
+<html>
+    <head>
+        <title>My Teams</title>
+        {{> imports path='' }}
+    </head>
+    <body onload="setAvatar('{{user.col1}}', '{{user.col2}}', '{{user.proType}}')">
+        <meta name="thecsrf" content="{{csrfToken}}" />
+        <div id="page-container">
+            {{> navbar signedIn=true path='' }}
+            <section class="defaultContainer" id="dash">
+                <div class="container-fluid">
+                    <div class="row profile">
+                        <div class="col-md-3">
+                            <div class="profile-sidebar" style="padding-top:100px;">
+                                <center>
+                                    <div class="iconProDiv">
+                                        <img id="iconPro2" class="iconPro2" src="../images/male2.png">
+                                        <img id="iconPro1" class="iconPro1" src="../images/male1.png">
+                                    </div>
+                                </center>
+                                <div class="profile-usertitle">
+                                    <div class="profile-usertitle-name">
+                                        {{user.name}}
+                                    </div>
+                                    <div class="profile-usertitle-job">
+                                        {{#if user.userType}} Manager {{else}} Player {{/if}}
+                                    </div>
+                                </div>
+                                <div class="profile-userbuttons">
+                                    {{#if user.userType}}
+                                        <button style="width: 250px;" type="button" class="button">
+                                            <a style="color: white;" href="/teams/new">Create New Team <i class="fas fa-tshirt"></i>
+                                            </a>
+                                            </a>
+                                        </button>
+                                    {{else}}
+                                        <form action="/teams/new" method="POST">
+                                            <div class="form-group">
+                                                <input class="form-control" style="width:250px; margin-left: 25px;" type="potentialTeamID" name="potentialTeamID" placeholder="Team Code" />
+                                                <div>
+                                                    <br>
+                                                    <input type="submit" value="Join New Team" class="button"></input>
+                                                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                                </div>
+                                        </form>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tableDiv">
+                    <center>
+                        <h2>Teams where you are a {{#if user.userType}} Manager {{else}} Player {{/if}}
+                        </h2>
+                    </center>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <center>
+                            <div class="carousel-inner">
+                                <div id="slide1" class="carousel-item active">
+                                    <table class="jerTab">
+                                        <tr>
+                                            <td>
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="hovereffect">
+                                                            <img id="j1" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o1" class="overlay">
+                                                                <h2 id="j1txt">Team 1</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv2">
+                                                        <div class="hovereffect">
+                                                            <img id="j2" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o2" class="overlay">
+                                                                <h2 id="j2txt">team 2</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="teamCell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j3" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o3" class="overlay">
+                                                                <h2 id="j3txt">Team 3</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="j4cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j4" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o4" class="overlay">
+                                                                <h2 id="j4txt">Team 4</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j5cell">
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                    <div class="hovereffect">
+                                                        <img id="j5" class="jerPicList" src="../images/jerOverlay.png">
+                                                        <div id="o5" class="overlay">
+                                                            <h2 id="j5txt">team 5</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td id="j6cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j6" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o6" class="overlay">
+                                                                <h2 id="j6txt">Team 6</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div id="slide2" class="carousel-item">
+                                    <table class="jerTab">
+                                        <tr>
+                                            <td id="j7cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j7" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o7" class="overlay">
+                                                                <h2 id="j7txt">Team 7</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j8cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j8" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o8" class="overlay">
+                                                                <h2 id="j8txt">team 8</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j9cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j9" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o9" class="overlay">
+                                                                <h2 id="j9txt">Team 9</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="j10cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="hovereffect">
+                                                            <img id="j10" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o10" class="overlay">
+                                                                <h2 id="j10txt">Team 10</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j11cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j11" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o11" class="overlay">
+                                                                <h2 id="j11txt">team 11</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j12cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j12" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o12" class="overlay">
+                                                                <h2 id="j12txt">Team 12</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </td>
+                                            </span>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div id="slide3" class="carousel-item">
+                                    <table class="jerTab">
+                                        <tr>
+                                            <td id="j13cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j13" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o13" class="overlay">
+                                                                <h2 id="j13txt">Team 13</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j14cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j14" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o14" class="overlay">
+                                                                <h2 id="j14txt">team 14</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j15cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j15" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o15" class="overlay">
+                                                                <h2 id="j15txt">Team 15</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="j16cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j16" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o16" class="overlay">
+                                                                <h2 id="j16txt">Team 16</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j17cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j17" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o17" class="overlay">
+                                                                <h2 id="j17txt">team 17</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td id="j18cell">
+                                                <span>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="teamDiv">
+                                                        <div class="hovereffect">
+                                                            <img id="j18" class="jerPicList" src="../images/jerOverlay.png">
+                                                            <div id="o18" class="overlay">
+                                                                <h2 id="j18txt">Team 18</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </center>
+                        <a class="carousel-control-prev" id="prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" id="next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

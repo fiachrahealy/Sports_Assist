@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Delete Account</title>
+        {{> imports path='../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=true path='../' }}
+            <section class="defaultContainer" id="dash">
+                <div class="container" style="margin-top: 100px">
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <h2>Delete your account?</h2>
+                            <h5>Deleting your account will delete all of your forum posts, formations, comments and any teams you are a manager of. <br>This action cannot be undone. </h5>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <form class="form-signin" action="/account/delete" method="POST">
+                                <div class="form-group">
+                                    <div class="formgroup">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                        <input type="hidden" name="id" value="{{user._id}}" />
+                                        <button class="button" style="width:100px; margin-right:20px" type="submit">Yes</button>
+                                        <button class="button" style="width:100px;" type="button">
+                                            <a style="color: white" href="/teams">No</a>
+                                        </button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

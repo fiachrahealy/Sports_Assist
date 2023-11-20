@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>Formations</title>
+        {{> imports path='../' }}
+    </head>
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" id="forum">
+                <div class="container" style="margin-top:130px;">
+                    <div class="col-lg-12">
+                        <center>
+                            <h2>Formation Creation Wizard</h2>
+                            <center>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-lg-6">
+                                    <br>
+                                    <form style="width:1100px;" action="/newFormation" method="POST">
+                                        <input type="hidden" value="{{csrfToken}}" name="_csrf">
+                                        <div class="form-group" style="width:1100px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input id="vidCode" style="width:800px;" class="form-control" type="text" name="name" placeholder="Enter Formation Name" />
+                                                    </td>
+                                                    <td>
+                                                        <button class="button" style="width:260px; margin-left: 20px" type="submit" name="upload">Create Formation</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="container" style="margin-top:50px">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="formationTitle">My Formations</span>
+                                            <table id="formationTab">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Formation</th>
+                                                        <th scope="col">Author</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each formations}}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/dashboard/formations/{{this._id}}">{{this.name}} </a>
+                                                            </td>
+                                                            <td>
+                                                                {{this.authorName}}
+                                                            </td>
+                                                        </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="formationTitle">Private Team Formations</span>
+                                            <table id="formationTab">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Formation</th>
+                                                        <th scope="col">Author</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each teamArrRes}}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/dashboard/formations/{{this._id}}">{{this.name}} </a>
+                                                            </td>
+                                                            <td>
+                                                                {{this.authorName}}
+                                                            </td>
+                                                        </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="formationTitle">Public Formations</span>
+                                            <table id="formationTab">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Formation</th>
+                                                        <th scope="col">Author</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each publicFormations}}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/dashboard/formations/{{this._id}}">{{this.name}} </a>
+                                                            </td>
+                                                            <td>
+                                                                {{this.authorName}}
+                                                            </td>
+                                                        </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Error</title>
+        {{> imports path='' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=true path='' }}
+            <section class="defaultContainer" id="dash">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-lg-12">
+                                    <h2>ERROR</h2>
+                                    <p> We're very sorry, {{user.name}}. This area is prohibited!</p>
+                                    <button class="button" style="width:130px" onclick="goBack()">Go Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

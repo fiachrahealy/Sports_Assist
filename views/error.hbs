@@ -1,0 +1,28 @@
+
+<html>
+    <head>
+        <title>Error</title>
+        {{> imports path='' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=false path='' }}
+            <section class="defaultContainer" id="dash">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-lg-12">
+                                    <h2>{{status}}</h2>
+                                    <h4>{{message}}</h4>
+                                    <p> {{stackHighlighted}} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

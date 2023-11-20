@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title>Squad</title>
+        {{> imports path='../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" id="hub">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+                <div class="container" style="margin-top: 130px">
+                    <br>
+                    <div class="row">
+                        <input id="csrfTokenProtocol" value="{{csrfToken}}" type="hidden">
+                        {{#each teamMembers}}
+                            <div class="col-lg-3">
+                                <div class="card card-one">
+                                    <div class="header">
+                                        <div class="avatar">
+                                            <div class="iconProDiv">
+                                                {{#if this.users.proType}}
+                                                    <img id="iconPro2" class="iconPro2squad" style="background:{{this.users.col2}}" src="../images/{{this.users.proType}}/img2.png">
+                                                    <img id="iconPro1" class="iconPro1squad" style="background:{{this.users.col1}}" src="../images/{{this.users.proType}}/img1.png">
+                                                {{else}}
+                                                    <img id="iconPro2" class="iconPro2squad" style="background:{{this.users.col2}}" src="../images/male2.png">
+                                                    <img id="iconPro1" class="iconPro1squad" style="background:{{this.users.col1}}" src="../images/male1.png">
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3>{{this.users.name}}</h3>
+                                    <div class="contacts">
+                                        {{#if this.users.userType}}
+                                            <div class="text-center">
+                                                <br> {{../team.teamName}} Manager
+                                            </div>
+                                            {{#if ../user.userType}}
+                                                <br>
+                                                <br>{{/if}}
+                                        {{else}}
+                                            {{#if ../user.userType}}
+                                                <input type="hidden" name="team_id">
+                                                <a id="{{this.users._id}}" name="GoalUp">
+                                                    <i class="fas fa-angle-up"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="MomUp">
+                                                    <i class="fas fa-angle-up"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="CardUp">
+                                                    <i class="fas fa-angle-up"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="CleanSheetUp">
+                                                    <i class="fas fa-angle-up"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="AssistUp">
+                                                    <i class="fas fa-angle-up"></i>
+                                                </a>
+                                            {{/if}}
+                                            <a href="#">
+                                                <i class="fas fa-futbol" title='Goals' id="{{this.users._id}}"></i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="fas fa-medal" title='Man of the Match' id="{{this.users._id}}"></i>
+                                                </i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="fas fa-sticky-note" title='Cards' id="{{this.users._id}}"></i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="fas fa-mitten" title='Clean Sheets' id="{{this.users._id}}"></i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="fas fa-running" title='Assists' id="{{this.users._id}}"></i>
+                                            </a>
+                                            {{#if ../user.userType}}
+                                                <a id="{{this.users._id}}" name="GoalDown">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="MomDown">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="CardDown">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="CleanSheetDown">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                                <a id="{{this.users._id}}" name="AssistDown">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                            {{/if}}
+                                            <a id="G-{{this.users._id}}">{{this.teamuserrels.goals}}</a>
+                                            <a id="M-{{this.users._id}}">{{this.teamuserrels.mom}}</a>
+                                            <a id="C-{{this.users._id}}">{{this.teamuserrels.cards}}</a>
+                                            <a id="X-{{this.users._id}}">{{this.teamuserrels.clean_sheets}}</a>
+                                            <a id="A-{{this.users._id}}">{{this.teamuserrels.assist}}</a>
+                                        {{/if}}
+                                        <div class="clear"></div>
+                                    </div>
+                                    <span id="Z-{{this.users._id}}" style="display:none;" class="saveChangeDiv">
+                                        <div class="text-center">
+                                            <button style="width:150px" class="button">Save <i class="fas fa-save"></i>
+                                            </button>
+                                        </div> &nbsp;
+                                    </span>
+                                    <div class="footer">
+                                        <span class="contactInfo">
+                                            <i class="fas fa-phone"> {{this.users.phoneNumber}}</i>
+                                        </span>
+                                        <span class="contactInfo">&emsp;&emsp; <i class="fas fa-envelope"></i> {{this.users.email}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+            </section>
+            {{> footer }}
+            </section>
+    </body>
+</html>

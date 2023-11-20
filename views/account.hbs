@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <title>Account</title>
+        {{> imports path='' }}
+    </head>
+    <body onload="setAvatarSettings('{{user.col1}}', '{{user.col2}}', '{{user.proType}}')">
+        <div id="page-container">
+            {{> navbar signedIn=true path='' }}
+            <section class="defaultContainer" style="background-color:#f8f9fa" id="settings">
+                <center>
+                    <div class="mainAccount">
+                        <ul class="nav nav-tabs" style=" margin-top: 100px; background-color: #f8f9fa;" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" style="color: #142D48;" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: #142D48" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Formations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: #142D48" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">My Posts</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="container" style="margin-top:50px">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <form action="/account" method="POST">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input class="form-control" type="text" name="name" placeholder="" value="{{user.name}}" />
+                                                </div>
+                                                <label for="teamType">Email Address</label>
+                                                <div class="form-group">
+                                                    <input readonly class="form-control" type="email" name="email" placeholder="" value="{{user.email}}" />
+                                                </div>
+                                                <label for="teamType">Phone Number</label>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="phoneNumber" placeholder="" value="{{user.phoneNumber}}" />
+                                                </div>
+                                                <label for="teamType">Date of Birth</label>
+                                                <div class="form-group">
+                                                    <input readonly class="form-control" type="text" name="dateOfBirth" placeholder="" value="{{user.dateOfBirth}}" />
+                                                </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <div class="form-group">
+                                                <label for="teamType">Profile Avatar</label>
+                                                <center>
+                                                    <div class="proDiv">
+                                                        <img id="prePro2" class="proPic2" src="../images/male2.png">
+                                                        <img id="prePro1" class="proPic1" src="../images/male1.png">
+                                                    </div>
+                                                </center>
+                                            </div>
+                                            <div class="form-group">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 100px;">
+                                                            <select id="proType" name="proType" style="width: 100px; margin-right: 30px" class="form-control">
+                                                                <option value="1">Short</option>
+                                                                <option value="2">Long</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="width: 100px;">
+                                                            <input type="color" name="col1" id="procol_1" value="{{user.col1}}" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="color" name="col2" id="procol_2" style="margin-left: 10px" value="{{user.col2}}" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                    <input type="hidden" name="id" value="{{user._id}}" />
+                                    <br>
+                                    <button type="submit" style="margin-right: 20px; width:250px" class="button">Save Changes <i class="fas fa-save"></i>
+                                    </button>
+                                    <button type="button" style="width:250px" class="button">
+                                        <a style="color: white" href="/account/delete">Delete Account <i class="fas fa-trash"></i>
+                                        </a>
+                                    </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="container" style="margin-top:20px">
+                                    <div class="row text-center">
+                                        <div class="container">
+                                            <div class="row text-center">
+                                                <div class="col-lg-12">
+                                                    {{#if formations}}
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="color: #142D48">Formation Name</th>
+                                                                    <th style="color: #142D48" class="text-center">Created</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each formations}}
+                                                                    <tr>
+                                                                        <td>{{this.name}}</td>
+                                                                        <td> {{this.date}}</td>
+                                                                    </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                            <table>
+                                                    {{else}}
+                                                        <h3> You have created no formations yet </h3>
+                                                    {{/if}}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="container" style="margin-top:20px">
+                                    <div class="row text-center">
+                                        <div class="container">
+                                            <div class="row text-center">
+                                                <div class="col-lg-12">
+                                                    {{#if posts}}
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="color: #142D48">Post</th>
+                                                                    <th style="color: #142D48">Created</th>
+                                                                    <th style="color: #142D48">Forum</th>
+                                                                    <th style="color: #142D48">Edit Post</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each posts}}
+                                                                    <tr>
+                                                                        <td> {{this.title}} </td>
+                                                                        <td> {{this.created}} </td>
+                                                                        <td>{{this.postType}} </td>
+                                                                        <td>
+                                                                            <a href="/forum/post/{{this.slug}}/edit">Edit</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                            <table>
+                                                    {{else}}
+                                                        <h3> You have written no posts yet </h3>
+                                                    {{/if}}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </section>
+            {{> footer}}
+        </div>
+    </body>
+</html>

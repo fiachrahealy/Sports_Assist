@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>{{post.title}}</title>
+        {{> imports path='../../../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../../../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" style="margin-top:150px;" id="format">
+                <h2 style="text-align:center; margin-bottom: 25px">{{post.title}}</h2>
+                <center>
+                    <table id="videoPlayerTable" style="width: 1050px; background-color: white; border: 1px solid #ced4da;" class="videoPlayerTable">
+                        <tr>
+                            <td id="vidTd">
+                                <center>
+                                    <p style="padding: 20px" class="text-justify">{{post.content}}</p>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <center>
+                                <td id="infoTd" style="background: white; border: 1px solid #ced4da; height:150px;">
+                                    <h5>
+                                        <b>Written By:</b> {{post.author.name}}
+                                    </h5>
+                                    <b>
+                                        <h5>Written:
+                                    </b>
+                                    {{post.created}}
+                                    </h5>
+                                    <br>
+                                    {{#if originalAuthor}}
+                                        <form action="/deletePostTeam" method="POST">
+                                            <button class="button" style="width:150px; margin-left: 20px" type="submit">Delete <i class="fas fa-trash"></i>
+                                            </button>
+                                            <button class="button" style="width:150px;" type="button">
+                                                <a style="color: white" href="/dashboard/forum/post/{{post.slug}}/edit">Edit <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                            </button>
+                                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                            <input type="hidden" name="id" value="{{post._id}}">
+                                        </form>
+                                    {{/if}}
+                                </td>
+                            </center>
+                        </tr>
+                        <tr>
+                            <td id="commentsTd" align="top" style=" background: white; border: 1px solid #ced4da; height:600px;">
+                                <center>
+                                    <h4>Comments:</h4>
+                                    <form id="vidForm" style="max-width: 2000px;" class="form-signin" action="/comment" method="POST">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" name="article" value="{{post._id}}">
+                                        <div class="form-group" style="width:800px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input id="vidCode" style="width:600px;" class="form-control" type="textl" name="comment" placeholder="Write a Comment" value="" />
+                                                    </td>
+                                                    <td>
+                                                        <button class="button" style="width:200px; margin-left: 20px" type="submit" name="upload">Post</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+                                    <div style="width:90%; height:400px; overflow:auto;">
+                                        <table id="vidList" style="width: 700px; margin-top: 20px;">
+                                            {{#each post.comments}}
+                                                <tr>
+                                                    <td class="vidCom">
+                                                        <b>
+                                                            <span style="font-size: 15px">{{this.name}}</span>
+                                                        </b>
+                                                        <br>
+                                                        <span style="font-size: 15px">{{this.comment}}</span>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </table>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

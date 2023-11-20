@@ -1,0 +1,205 @@
+<html>
+    <head>
+        <title>New Formation</title>
+        {{> imports path='../../' }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script src="../../scripts/tactics.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                let originalAuthor = {
+                    {
+                        {
+                            originalAuthor
+                        }
+                    }
+                };
+                if (!originalAuthor) {
+                    $("#authorOnly").hide();
+                }
+                let coachInd = {
+                    {
+                        {
+                            coachInd
+                        }
+                    }
+                };
+                if (!coachInd) {
+                    $("#teamCoachOnly").hide();
+                }
+                if (coachInd && !originalAuthor) {
+                    $("#savebuttonformation").hide();
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=true path='../../' }}
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            </nav>
+            <nav class="dashSubMenu" style=" margin-top: -87px;">
+                <ul>
+                    {{#if user.userType}}
+                        <li style="float: right" class="nav-item">
+                            <a class="nav-link" href="/dashboard/settings">Settings</a>
+                        </li>
+                        <li style="float: right" class="nav-item">
+                            <a class="nav-link" href="/dashboard/email">Team Email</a>
+                        </li>
+                        <li style="float: right" class="nav-item">
+                            <a class="nav-link" href="/dashboard/noticeboard/create">Noticeboard</a>
+                        </li>
+                    {{else}}
+                        <li style="float: right" class="nav-item">
+                            <a class="nav-link" href="/dashboard/details">Team Details</a>
+                        </li>
+                        <li style="float: right" id="notLink" class="nav-item">
+                            <a class="nav-link">Noticeboard</a>
+                        </li>
+                    {{/if}}
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/nutrition">Nutrition</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/gym">Gym</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/forum">Forum</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/results">Results</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/fixtures">Fixtures</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/squad">Squad</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/video">Video Analysis</a>
+                    </li>
+                    <li style="float: right" class="nav-item">
+                        <a class="nav-link" href="/dashboard/formations">Formations</a>
+                    </li>
+                    <li style="float: left" class="nav-item">
+                        <a class="nav-link" href="/dashboard">{{team.teamName}}</a>
+                    </li>
+                </ul>
+            </nav>
+            <section class="defaultContainer" style="margin-top:150px" id="format">
+                <h2 style="text-align:center; margin-bottom: 25px">Formation Name: <span id="formName">{{formation.name}}
+                        <span>
+                </h2>
+                <table class="table">
+                    <tr id="authorOnly">
+                        <td>
+                            <button id='deletebutton' class="button">Delete <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button id='addPlayer2' class="button">Add <i style="color: lightblue; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff" class="fas fa-circle"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button id='addPlayer1' class="button">Add <i style="color: navy; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;" class="fas fa-circle"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button id='savebutton' class="button">Save <i class="fas fa-save"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                <a class='button' href="/dashboard/formations">Cancel <i class="fas fa-times"></i>
+                                </a>
+                            </button>
+                        </td>
+                        <td id="teamCoachOnly">
+                            <button id='savebuttonformation' class="button">Private <i class="fas fa-lock"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+                <center>
+                    <table id="videoPlayerTable" style="width: 1050px;" class="videoPlayerTable">
+                        <tr>
+                            <td id="vidTd">
+                                <center>
+                                    <div id='tacticsBoard'></div>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <center>
+                                <td id="infoTd" style="background: white; border: 1px solid #ced4da; height:80px;">
+                                    <h5>
+                                        <b>Formation Name:</b> {{formation.name}}
+                                    </h5>
+                                </td>
+                            </center>
+                        </tr>
+                        <tr>
+                            <td id="commentsTd" align="top" style=" background: white; border: 1px solid #ced4da; height:600px;">
+                                <center>
+                                    <h4>Comments:</h4>
+                                    <form id="vidForm" style="max-width: 2000px;" class="form-signin" action="" method="POST">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}" id="cyberDiv">
+                                        <input type="hidden" name="team_Id" value="{{team._id}}" id="teamDiv">
+                                        <div class="form-group" style="width:800px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input id="vidCode" style="width:600px;" class="form-control" type="textl" name="userFeedback" placeholder="Write a Comment" value="" />
+                                                    </td>
+                                                    <td>
+                                                        <button class="button" style="width:200px; margin-left: 20px" type="submit" name="upload">Post</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+                                    <div style="width:90%; height:400px; overflow:auto;">
+                                        <table id="vidList" style="width: 700px; margin-top: 20px;">
+                                            {{#each comments}}
+                                                <tr>
+                                                    <td class="vidCom">
+                                                        <b>
+                                                            <span style="font-size: 15px">{{this.authorName}}</span>
+                                                        </b>
+                                                        <br>
+                                                        <span style="font-size: 15px">{{this.feedback}}</span>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </table>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+            </section>
+            {{> footer }}
+        </div>
+        <script type="text/javascript">
+            let modified = false
+            let dots = {
+                {
+                    {
+                        dots
+                    }
+                }
+            };
+            window.onbeforeunload = confirmExit;
+
+            function confirmExit() {
+                if (modified) {
+                    return "You may lose changes if you exit now!";
+                }
+            }
+        </script>
+    </body>
+</html>

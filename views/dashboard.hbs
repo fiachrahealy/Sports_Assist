@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <title>Dashboard</title>
+        {{> imports path='' }}
+        <script>
+            $(document).ready(function() {
+                $("#noticeForm").click(function() {
+                    $("#form").submit();
+                });
+            });
+        </script>
+    </head>
+    <body onload="setAvatar('{{user.col1}}','{{user.col2}}','{{user.proType}}')">
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='' }}
+            <section class="defaultContainer" id="dash">
+                <div class="container-fluid">
+                    <div class="row profile">
+                        <div class="col-md-3">
+                            <div class="profile-sidebar">
+                                <div class="profile-usertitle">
+                                    <div class="profile-usertitle-name">
+                                        {{team.teamName}}
+                                    </div>
+                                    <div class="profile-usertitle-job"> Team </div>
+                                    <center>
+                                        <img id="iconJer" class="jerPicSmall" style="margin-bottom: 20px" src="../images/jerOverlay.png">
+                                    </center>
+                                    {{#if user.userType}}
+                                        <div class="profile-usertitle-name">
+                                            {{team.teamCode}}
+                                        </div>
+                                        <div class="profile-usertitle-job">
+                                            <i class="fas fa-user-plus"></i> Code to Join Team
+                                        </div>
+                                    {{/if}}
+                                </div>
+                                <div class="profile-userbuttons">
+                                    <button type="button" class="button">
+                                        {{#if user.userType}}
+                                            <a style="color: white" href="/dashboard/settings/delete">Delete Team <i class="fas fa-trash"></i>
+                                            </a>
+                                        {{else}}
+                                            <a style="color: white" href="/dashboard/leave">Leave Team <i class="fas fa-door-open"></i>
+                                            </a>
+                                        {{/if}}
+                                    </button>
+                                </div>
+                                <br>
+                                <br>
+                                <center>
+                                    <div class="iconProDiv">
+                                        <img id="iconPro2" class="iconPro2" src="../images/male2.png">
+                                        <img id="iconPro1" class="iconPro1" src="../images/male1.png">
+                                    </div>
+                                </center>
+                                <div class="profile-usertitle">
+                                    <div class="profile-usertitle-name">
+                                        {{user.name}}
+                                    </div>
+                                    <div class="profile-usertitle-job">
+                                        {{#if user.userType}} Manager {{else}} Player {{/if}}
+                                    </div>
+                                </div>
+                                <div class="profile-userbuttons">
+                                    <button type="button" class="button">
+                                        <a style="color: white" href="/teams">My Teams <i class="fas fa-tshirt"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="profile-content" style="margin-top:50px">
+                                <div class="row">
+                                    <a href="/dashboard/formations" class="col-md-3 bg-info">
+                                        <div class="rectangle-function">
+                                            <br>
+                                            <span class="dashText">Formations</span>
+                                            <i id="dashIcon1" class="fas fa-project-diagram"></i>
+                                        </div>
+                                    </a>
+                                    <a href="/dashboard/video" class="col-md-3 offset-md-1 bg-warning">
+                                        <div class=" rectangle-function">
+                                            <span class="dashText">Video <br> Analysis </span>
+                                            <i id="dashIcon2" class="fas fa-video"></i>
+                                        </div>
+                                    </a>
+                                    <a href="dashboard/squad" class="col-md-3 offset-md-1 bg-danger">
+                                        <div class="rectangle-function">
+                                            <br>
+                                            <span class="dashText">Squad</span>
+                                            <i id="dashIcon1" class="fas fa-running"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row vertical-offset"></div>
+                                <div class="row">
+                                    <a href="dashboard/fixtures" class="col-md-3 bg-success">
+                                        <div class="rectangle-function">
+                                            <br>
+                                            <span class="dashText">Fixtures</span>
+                                            <i id="dashIcon1" class="fas fa-calendar-alt"></i>
+                                        </div>
+                                    </a>
+                                    <a href="dashboard/results" class="col-md-3 offset-md-1 bg-info">
+                                        <div class=" rectangle-function">
+                                            <br>
+                                            <span class="dashText">Results</span>
+                                            <i id="dashIcon1" class="fas fa-chart-line"></i>
+                                        </div>
+                                    </a>
+                                    <a href="dashboard/forum" class="col-md-3 offset-md-1 bg-success">
+                                        <div id="forumBox" class="rectangle-function">
+                                            <br>
+                                            <span class="dashText">Forum</span>
+                                            <i id="dashIcon1" class="far fa-comment"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row vertical-offset"></div>
+                                <div class="row">
+                                    <a class="col-md-3 bg-danger">
+                                        <div class="rectangle-function">
+                                            <br>
+                                            <span class="dashText">Training</span>
+                                            <i id="dashIcon1" class="far fa-futbol"></i>
+                                        </div>
+                                    </a>
+                                    <a href="dashboard/gym" class="col-md-3 offset-md-1 bg-success">
+                                        <div class=" rectangle-function">
+                                            <br>
+                                            <span class="dashText">Gym</span>
+                                            <i id="dashIcon1" class="fas fa-dumbbell"></i>
+                                        </div>
+                                    </a>
+                                    <a href="dashboard/nutrition" class="col-md-3 offset-md-1 bg-warning">
+                                        <div class="rectangle-function">
+                                            <br>
+                                            <span class="dashText">Nutrition</span>
+                                            <i id="dashIcon1" class="fas fa-apple-alt"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row vertical-offset"></div>
+                                <div class="row">
+                                    {{#if user.userType}}
+                                        <a href="dashboard/noticeboard/create" class="col-md-3 bg-warning">
+                                            <div class="rectangle-function">
+                                                <br>
+                                                <span class="dashText">Noticeboard</span>
+                                                <i id="dashIcon1" class="fas fa-thumbtack"></i>
+                                            </div>
+                                        </a>
+                                        <a href="dashboard/email" class="col-md-3 offset-md-1 bg-danger">
+                                            <div class=" rectangle-function">
+                                                <br>
+                                                <span class="dashText">Team Email</span>
+                                                <i id="dashIcon1" class="fas fa-at"></i>
+                                            </div>
+                                        </a>
+                                        <a href="dashboard/settings" class="col-md-3 offset-md-1 bg-info">
+                                            <div class="rectangle-function">
+                                                <br>
+                                                <span class="dashText">Settings</span>
+                                                <i id="dashIcon1" class="fas fa-cogs"></i>
+                                            </div>
+                                        </a>
+                                    {{else}}
+                                        <a id="noticeForm" class="col-md-3 bg-warning">
+                                            <div class="rectangle-function">
+                                                <br>
+                                                <p class="dashText">Noticeboard </span>
+                                                    <i id="dashIcon1" class="fas fa-thumbtack"></i>
+                                            </div>
+                                        </a>
+                                        <a href="dashboard/details" class="col-md-3 offset-md-1 bg-danger">
+                                            <div class=" rectangle-function">
+                                                <span class="dashText">Team <br> Details </span>
+                                                <i id="dashIcon2" class="fas fa-info-circle"></i>
+                                            </div>
+                                        </a>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

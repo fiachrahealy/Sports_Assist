@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>Noticeboard</title>
+        {{> imports path='../../../../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../../../../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" style="margin-top:150px" id="teams">
+                <div class="container">
+                    <center>
+                        <table>
+                            <tr>
+                                <td style="width:500px; ">
+                                    <div class="col-lg-12">
+                                        <center>
+                                            <h2 style="margin-top: 10px">Pin a Sticky Note</h2>
+                                        </center>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-lg-12 text-center">
+                                            <form class="form-signin" action="/dashboard/noticeboard/create" method="POST">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                                    <input type="hidden" name="team" value="{{team._id}}">
+                                                    <select id="vidCode" style="width:300px" name="player">
+                                                        <option value="~">Select Player</option>
+                                                        {{#each teamMembersArr}}
+                                                            {{#if this.users.userType}}{{else}}
+                                                                <option value="{{this.users._id}}">{{this.users.name}}</option>
+                                                            {{/if}}
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" id="vidCode" style="width:300px; padding:10px" maxlength="25" name="subject" placeholder="Title">
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea style="width: 300px; height: 200px; padding:10px" maxlength="400" id="vidCode" name="content" rows="6" placeholder="Note"></textarea>
+                                                </div>
+                                                <center>
+                                                    <button class="button" type="submit">Pin Note <i class="fas fa-thumbtack"></i>
+                                                    </button>
+                                                </center>
+                                                <br>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width:500px;" valign="top">
+                                    <div class="col-lg-12">
+                                        <center>
+                                            <h2 style="margin-top: 10px">View Noticeboard</h2>
+                                        </center>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-lg-12 text-center">
+                                            <form class="form-signin" action="/dashboard/noticeboard" method="POST">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                                    <input type="hidden" name="team" value="{{team._id}}">
+                                                    <select id="vidCode" style="width:300px" name="player">
+                                                        <option value="~">Select Player</option>
+                                                        {{#each teamMembersArr}}
+                                                            {{#if this.users.userType}}{{else}}
+                                                                <option value="{{this.users._id}}">{{this.users.name}}</option>
+                                                            {{/if}}
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                                <center>
+                                                    <button class="button" type="submit">View <i class="far fa-sticky-note"></i>
+                                                    </button>
+                                                </center>
+                                                <br>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <title>Videos</title>
+        {{> imports path='../../../../' }}
+    </head>
+    <body onload="setUpVideo(true)">
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../../../../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" id="vidAn">
+                <div class="videoTable">
+                    <center>
+                        <h6 style="display:none" id="noVidMessage">
+                            {{#if user.userType}} {{else}} No videos available, check back when your manager makes an upload.{{/if}}
+                        </h6>
+                    </center>
+                    <table id="videoPlayerTable" class="videoPlayerTable">
+                        <tr>
+                            <td id="vidTd" style="display: none; height:300px; width:600px;">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe id="frame" class="embed-responsive-item" src="https://www.youtube.com/embed/{{video.code}}"></iframe>
+                                </div>
+                            </td>
+                            {{#if user.userType}}
+                                <td valign="top" style="width:600px;">
+                                    <center>
+                                        <h4>Upload New Video</h4>
+                                        <form id="vidForm" class="form-signin" style="max-width: 2000px;" action="/dashboard/video" method="POST">
+                                            <div class="form-group" style="width:550px">
+                                                <input id="vidName" class="form-control" type="text" name="title" placeholder="Video Title" value="" />
+                                            </div>
+                                            <div class="form-group" style="width:550px">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <label id="vidUrl">https://www.youtube.com/watch?v=</label>
+                                                        </td>
+                                                        <td>
+                                                            <input id="vidCode1" class="form-control" type="textl" name="code" placeholder="tgbNymZ7vqY" value="" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                            <input type="hidden" name="team" value="{{team._id}}">
+                                            <button class="button" style="width:320px" name="upload">Upload to Team Database</button>
+                                        </form>
+                                    </center>
+                                </td>
+                            {{else}}
+                                <td id="vidListTd" style="display: none;" valign="top" rowspan="3">
+                                    <center>
+                                        <h4>Video List</h4>
+                                        <div style="width:550px; height:1000px; overflow:auto;">
+                                            <table id="vidList" style="width: 500px; margin-top: 20px;">
+                                                {{#each videos}}
+                                                    <tr>
+                                                        <td class="vidThumb" ; style="background-image: url('https://img.youtube.com/vi/{{this.code}}/2.jpg');"></td>
+                                                        <td class="vidInfo" onclick="linkVideo('{{this.code}}')">
+                                                            <b>
+                                                                <span style="font-size: 20px">{{this.title}}</span>
+                                                            </b>
+                                                            <br>
+                                                            <span style="font-size: 12px">Uploaded: {{this.created}}</span>
+                                                        </td>
+                                                    </tr>
+                                                {{/each}}
+                                            </table>
+                                        </div>
+                                    </center>
+                                </td>
+                            {{/if}}
+                        </tr>
+                        <tr>
+                            <td id="infoTd" style="background: white; display: none; border: 1px solid #ced4da; height:150px;">
+                                <h5>
+                                    <b>Title:</b>
+                                    <span id="vidTitl">{{video.title}}</span>
+                                </h5>
+                                <b>
+                                    <h5>Uploaded:
+                                </b>
+                                <span id="vidDate"> {{video.created}}</span>
+                                </h5>
+                                {{#if user.userType}}
+                                    <form action="/dashboard/video/delete" method="POST">
+                                        <button class="button" style="width:150px; margin-right:50px; float: right;" type="submit">Delete <i class="fas fa-trash"></i>
+                                        </button>
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" id="vidToDelete" name="vidID" value="{{video._id}}">
+                                    </form>
+                                {{/if}}
+                            </td>
+                            {{#if user.userType}}
+                                <td id="vidListTd" style="display: none;" valign="top" rowspan="2">
+                                    <center>
+                                        <h4>Video List</h4>
+                                        <div style="width:550px; height:625px; overflow:auto;">
+                                            <table id="vidList" style="width: 500px; margin-top: 20px;">
+                                                {{#each videos}}
+                                                    <tr>
+                                                        <td class="vidThumb" ; style="background-image: url('https://img.youtube.com/vi/{{this.code}}/2.jpg');"></td>
+                                                        <td class="vidInfo" onclick="linkVideo('{{this.code}}')">
+                                                            <b>
+                                                                <span style="font-size: 20px">{{this.title}}</span>
+                                                            </b>
+                                                            <br>
+                                                            <span style="font-size: 12px">Uploaded: {{this.created}}</span>
+                                                        </td>
+                                                    </tr>
+                                                {{/each}}
+                                            </table>
+                                        </div>
+                                    </center>
+                                </td>
+                            {{/if}}
+                        </tr>
+                        <tr>
+                            <td id="commentsTd" align="top" style="display: none; background: white; border: 1px solid #ced4da; height:600px;">
+                                <center>
+                                    <h4>Comments:</h4>
+                                    <form id="vidForm" style="max-width: 2000px;" class="form-signin" action="/comment" method="POST">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" name="article" value="{{video._id}}">
+                                        <div class="form-group" style="width:550px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input id="vidCode" style="width:400px;" class="form-control" type="textl" name="comment" placeholder="Write a Comment" value="" />
+                                                    </td>
+                                                    <td>
+                                                        <button class="button" style="width:100px; margin-left: 20px" type="submit" name="upload">Post</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+                                    <div style="width:90%; height:400px; overflow:auto;">
+                                        <table id="vidList" style="width: 500px; margin-top: 20px;">
+                                            {{#each video.comments}}
+                                                <tr>
+                                                    <td class="vidCom">
+                                                        <b>
+                                                            <span style="font-size: 15px">{{this.name}}</span>
+                                                        </b>
+                                                        <br>
+                                                        <span style="font-size: 15px">{{this.comment}}</span>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </table>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

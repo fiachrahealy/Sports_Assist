@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Fixtures</title>
+        {{> imports path='../' }}
+        <link href="../stylesheets/fixtures.style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" id="forum">
+                <div class="container" style="margin-top: 130px">
+                    <center>
+                        <h2 class="fixt">Fixtures</h2>
+                    </center>
+                    <div class="container-md" id="fixturesmain">
+                        <form style="width:1100px;" action="/dashboard/fixtures" method="POST">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                            <input type="hidden" name="team" value="{{team._id}}">
+                            {{#if user.userType}}
+                                <table class="resultsAndFix">
+                                    <tr>
+                                        <td>
+                                            <input type="date" style="width:100%" id="date" name="date" placeholder="Date" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:100%" id="time" name="time" placeholder="Kick Off" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:100%" id="time" name="venue" placeholder="Venue" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:100%" id="team" name="versus" placeholder="Opponent" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:100%" id="name" name="ref" placeholder="Referee" value="">
+                                        </td>
+                                        <td>
+                                            <button class="button" style="width:50px">
+                                                <i class="fas fa-paper-plane"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            {{/if}}
+                            <center>
+                        </form>
+                        <table class="contactTab">
+                            <tr>
+                                <th> Date </th>
+                                <th> Kick Off </th>
+                                <th> Venue </th>
+                                <th> Opponent </th>
+                                <th> Referee </th>
+                                {{#if user.userType}}
+                                    <th> Delete </th>
+                                {{/if}}
+                            </tr>
+                            {{#each fixtures}}
+                                <tr>
+                                    <td>
+                                        {{this.date}}
+                                    </td>
+                                    <td>
+                                        {{this.time}}
+                                    </td>
+                                    <td>
+                                        {{this.venue}}
+                                    </td>
+                                    <td>
+                                        {{this.versus}}
+                                    </td>
+                                    <td>
+                                        {{this.ref}}
+                                    </td>
+                                    {{#if ../user.userType}}
+                                        <td>
+                                            <form method="POST" style="margin:0px; padding:0px; display:inline;" action="/dashboard/fixtures/delete">
+                                                <input type="hidden" name="_csrf" value="{{../csrfToken}}" />
+                                                <input type="hidden" name="fixID" value="{{this._id}}">
+                                                <button class="button" style="width:50px">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                </tr>
+                                {{/if}}
+                            {{/each}}
+                        </table>
+                        </center>
+                    </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

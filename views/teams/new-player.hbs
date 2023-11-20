@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Join Team</title>
+        {{> imports path='../../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=true path='../../' }}
+            <section class="defaultContainer" id="dash">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <h2>Join a Team</h2>
+                            <h3>Your team code can be obtained from your team's manager</h3>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <center>
+                                <form action="/teams/new" method="POST">
+                                    <div class="form-group">
+                                        <input class="form-control" style="width:250px;" type="potentialTeamID" name="potentialTeamID" placeholder="Team Code" />
+                                    </div>
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                    <div class="formgroup">
+                                        <input type="submit" value="Join New Team" class="button"></input>
+                                    </div>
+                                    <br>
+                                </form>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+form {
+    margin: 20px 0;
+}
+
+form input, button {
+    padding: 7px;
+
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+}

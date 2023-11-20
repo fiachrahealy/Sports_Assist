@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Login</title>
+        {{> imports path='' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=false path='' }}
+            <section class="defaultContainer" style=" background-color:#f8f9fa" id="dash">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <h2>Login</h2>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <form class="form-signin" action="/login" method="POST">
+                                <div class="form-group">
+                                    <input class="form-control" type="email" name="email" placeholder="Email Address" />
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="password" name="password" placeholder="Password" />
+                                </div>
+                                <div class="formgroup">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                    <button class="button" style="width:200px" type="submit" name="Login">Login</button>
+                                </div>
+                            </form>
+                            <h3>
+                                <a href="/signup">Create an Account</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

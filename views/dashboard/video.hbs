@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Videos</title>
+        {{> imports path='../' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=true path='../' }}
+            {{> sub-navbar }}
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            <section class="defaultContainer" id="vidAn">
+                <div class="videoTable">
+                    <center>
+                        <h6 id="noVidMessage">
+                            {{#if user.userType}} {{else}} No videos available, check back when your manager makes an upload.{{/if}}
+                        </h6>
+                    </center>
+                    <table id="videoPlayerTable" class="videoPlayerTable">
+                        <tr>
+                            {{#if user.userType}}
+                                <td valign="top" style="width:600px;">
+                                    <center>
+                                        <h4>Upload New Video</h4>
+                                        <form id="vidForm" class="form-signin" style="max-width: 2000px;" action="/dashboard/video" method="POST">
+                                            <div class="form-group" style="width:550px">
+                                                <input id="vidName" class="form-control" type="text" name="title" placeholder="Video Title" value="" />
+                                            </div>
+                                            <div class="form-group" style="width:550px">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <label id="vidUrl">https://www.youtube.com/watch?v=</label>
+                                                        </td>
+                                                        <td>
+                                                            <input id="vidCode1" class="form-control" type="textl" name="code" placeholder="tgbNymZ7vqY" value="" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                            <input type="hidden" name="team" value="{{team._id}}">
+                                            <button class="button" style="width:320px" name="upload">Upload to Team Database</button>
+                                        </form>
+                                    </center>
+                                </td>
+                            {{/if}}
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

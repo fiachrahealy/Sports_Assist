@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Noticeboard</title>
+        {{> imports path='../' }}
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../' }}
+            {{> sub-navbar }}
+            <section style="height:auto+25px; margin-top: 130px; padding-bottom: 30px">
+                <ul class="noticeBoard">
+                    {{#each messages}}
+                        <li class="noteList">
+                            <a class="note">
+                                <center>
+                                    <h5 style="margin-left: 0px">
+                                        <b>{{this.subject}}</b>
+                                    </h5>
+                                </center>
+                                <span class="content">{{this.content}}</span>
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>Sign Up</title>
+        {{> imports path='' }}
+    </head>
+    <body>
+        <div id="page-container">
+            {{> navbar signedIn=false path='' }}
+            <section class="defaultContainer" style="background-color:#f8f9fa" id="signup">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <h2>Sign Up</h2>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <div class="container">
+                                {{#each errs}}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{this.msg}}
+                                    </div>
+                                {{/each}}
+                            </div>
+                            <form class="form-signin" action="/signup" method="POST">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="name" placeholder="Name" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="email" name="email" placeholder="Email Address" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="phoneNumber" placeholder="Phone Number" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="date" name="dateOfBirth" placeholder="Date of Birth" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teamType">Profile Avatar</label>
+                                    <center>
+                                        <div class="proDiv">
+                                            <img id="prePro2" class="proPic2" src="../images/male2.png">
+                                            <img id="prePro1" class="proPic1" src="../images/male1.png">
+                                        </div>
+                                    </center>
+                                </div>
+                                <div class="form-group">
+                                    <table>
+                                        <tr>
+                                            <td style="width: 100px;">
+                                                <select id="proType" name="proType" style="width: 100px" class="form-control">
+                                                    <option value="1">Short</option>
+                                                    <option value="2">Long</option>
+                                                </select>
+                                            </td>
+                                            <td style="width: 100px;">
+                                                <input type="color" name="col1" id="procol_1" value="#ffdbaa" />
+                                            </td>
+                                            <td>
+                                                <input type="color" name="col2" id="procol_2" style="margin-left: 10px" value="#aa9d39" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userType">What type of user are you?</label>
+                                    <select class="form-control" id="userType" name="userType">
+                                        <option value="false">Player</option>
+                                        <option value="true">Manager</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="password" name="password" placeholder="Password" />
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="password" name="password-confirm" placeholder="Confirm Password" />
+                                </div>
+                                <div class="formgroup">
+                                    <input type="hidden" name="_csrf" value={{csrfToken}}>
+                                    <button class="button" style="width:220px" type="submit" name="signup">Create Account</button>
+                                </div>
+                            </form>
+                            <h3>
+                                <a href="">Already have an account? Login</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

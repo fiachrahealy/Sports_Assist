@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Nutrition</title>
+        {{> imports path='../' }}
+        <link href="../stylesheets/nutrition.style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="page-container">
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" id="about">
+                <p id="age" class="hiddenDiv">{{user.age}}</p>
+                <input type="hidden" id="token" class="hiddenDiv" value="{{csrfToken}}">
+                <p id="height" class="hiddenDiv">{{nutrition.0.height}}</p>
+                <p id="weight" class="hiddenDiv">{{nutrition.0.weight}}</p>
+                <div id="nutritionMain">
+                    {{#if nutrition}}
+                        <div id="yourCals" class="hiddenCalories">
+                            <h3 class="hiddenCalories" style="margin-top: 150px;font-size:24px;">Your Calories: </h3>
+                            <h3 id="caloriesValue" style="font-size: 60px;"></h3>
+                        </div>
+                    {{/if}}
+                    <br>
+                    <div {{#unless nutrition}}style="margin-top: 150px" {{/unless}}>
+                        <select class="form-control-lg" id="systemMeasure">
+                            <option value=0>Metric (kg,cm)</option>
+                            <option value=1>Imperial (lbs,feet)</option>
+                        </select>
+                        <br>
+                        <div id="nutritionSubmitDiv">
+                            <form method="POST" id="nutritionFormSubmit" action="dashboard/nutrition">
+                                <center>
+                                    <br>
+                                    <input class="form-control" style="width: 300px; height: 50px; font-size: 20px" id="metricHeight" name="height" placeholder="Height (cm)">
+                                    <br>
+                                    <input class="form-control" style="width: 300px; height: 50px; font-size: 20px" id="metricWeight" placeholder="Weight (kg)" name="weight">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    <select class="form-control-lg" id="weightGoal">
+                        <option value=0>Maintain Weight</option>
+                        <option value=1>Lose Weight</option>
+                        <option value=2>Gain Weight</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button type="button" class="button" id="nutritionSubmitButton">Submit</button>
+                </div>
+                <div class="macroNutrients ">
+                    <div class="macro">
+                        <h3 class="macroText">Protein</h3>
+                        {{#if nutrition}}
+                            <h3 class="macroTextValue" id="macroPro"></h3>
+                        {{/if}}
+                    </div>
+                    <div class="macro">
+                        <h3 class="macroText">Fats</h3>
+                        {{#if nutrition}}
+                            <h3 class="macroTextValue" id="macroFat"></h3>
+                        {{/if}}
+                    </div>
+                    <div class="macro">
+                        <h3 class="macroText">Carbohydrates</h3>
+                        {{#if nutrition}}
+                            <h3 class="macroTextValue" id="macroCarb"></h3>
+                        {{/if}}
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>

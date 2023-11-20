@@ -1,0 +1,49 @@
+<nav class="dashSubMenu fixed-top">
+    <ul>
+        {{#if user.userType}}
+            <li style="float: right" class="nav-item">
+                <a class="nav-link" href="/dashboard/settings">Settings</a>
+            </li>
+            <li style="float: right" class="nav-item">
+                <a class="nav-link" href="/dashboard/email">Team Email</a>
+            </li>
+            <li style="float: right" class="nav-item">
+                <a class="nav-link" href="/dashboard/noticeboard/create">Noticeboard</a>
+            </li>
+        {{else}}
+            <li style="float: right" class="nav-item">
+                <a class="nav-link" href="/dashboard/details">Team Details</a>
+            </li>
+            <li style="float: right" id="notLink" class="nav-item">
+                <a class="nav-link">Noticeboard</a>
+            </li>
+        {{/if}}
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/nutrition">Nutrition</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/gym">Gym</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/forum">Forum</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/results">Results</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/fixtures">Fixtures</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/squad">Squad</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/video">Video Analysis</a>
+        </li>
+        <li style="float: right" class="nav-item">
+            <a class="nav-link" href="/dashboard/formations">Formations</a>
+        </li>
+        <li style="float: left" class="nav-item">
+            <a class="nav-link" href="/dashboard">{{team.teamName}}</a>
+        </li>
+    </ul>
+</nav>

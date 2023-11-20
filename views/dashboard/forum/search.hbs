@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Forum</title>
+        {{> imports path='../../' }}
+        <script>
+            function handleLoad() {
+                let pageNow = {
+                    {
+                        page
+                    }
+                };
+                let totalPages = {
+                    {
+                        pages
+                    }
+                };
+                document.getElementById("back").href = '/posts/page/' + (pageNow - 1)
+                document.getElementById("forward").href = '/posts/page/' + (pageNow + 1)
+                if (pageNow === 1) {
+                    document.getElementById("back1").style.display = "none";
+                    document.getElementById("back").style.display = "none";
+                }
+                if (!(pageNow < totalPages)) {
+                    document.getElementById("forward1").style.display = "none";
+                    document.getElementById("forward").style.display = "none";
+                }
+            }
+        </script>
+    </head>
+    <body onload="handleLoad()">
+        <div id="page-container">
+            {{> navbar signedIn=true path='../../' }}
+            <form method="POST" id="form" style="display:none" action="/dashboard/noticeboard">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                <input type="hidden" name="team" value="{{team._id}}">
+                <input type="hidden" name="player" value="{{user._id}}">
+            </form>
+            {{> navbar signedIn=true path='../../' }}
+            {{> sub-navbar }}
+            <section class="defaultContainer" style="margin-top:130px" id="forum">
+                <div class="container">
+                    <div class="col-lg-12">
+                        <center>
+                            <h2>{{team.teamName}} Forum</h2>
+                        <center>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-lg-12 text-center">
+                            <form style="float: left" class="form-signin" action="/dashboard/forum/add" method="POST">
+                                <div class="form-group">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+                                    <input type="hidden" name="id" />
+                                    <input class="form-control" style="width: 700px;" type="text" name="title" id="vidCode" placeholder="Post Title" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" style="width: 1100px; height: 250px" id="vidCode" name="content" rows="10" placeholder="Post Content"></textarea>
+                                </div>
+                                <div style="float: right" class="formgroup">
+                                    <button class="button" style="width: 300px;" type="submit" name="submit">Start a Discussion</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="container">
+                            <div class="row text-center"></div>
+                            <div class="row text-center"></div>
+                            <div class="row text-center">
+                                <div class="col-lg-6">
+                                    <br>
+                                    <form style="width:1100px;" action="/dashboard/forum/search" method="GET">
+                                        <div class="form-group" style="width:1100px">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input id="vidCode" style="width:1000px;" class="form-control" type="text" name="q" placeholder="Search The Forum" />
+                                                    </td>
+                                                    <td>
+                                                        <button class="button" style="width:60px; margin-left: 20px" type="submit" name="upload">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h5 style="margin-top: 20px">Showing posts that contain "{{pageTitle}}" | <a href="/dashboard/forum">Show all posts</a>
+                                                        </h5>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-12">
+                                    {{#if posts}} {{#each posts}}
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <p class="text-left">
+                                                        <b>
+                                                            <a class="post-card-title" href="/dashboard/forum/post/{{this.slug}}"> {{this.title}} </a>
+                                                        </b>
+                                                    </p>
+                                                    <p id="postDate" class="text-left"> {{this.created}}</p>
+                                                    <p class="text-left"> {{this.content}}</p>
+                                                    <p class="text-right"> {{this.author.name}} </p>
+                                                </div>
+                                            </div>
+                                        {{/each}}
+                                    {{else}}
+                                        <h4> No Posts Found </h4>
+                                    {{/if}}
+                                </div>
+                                <nav class="text-center" aria-label="page navigation example">
+                                    <ul class="pagination text-center">
+                                        <li class="button" style="width:100px">
+                                            <a id="back" style="color: white" href="/dashboard/forum/posts/page/"> Prev </a>
+                                        </li>
+                                        <li class="button" style="width:100px; margin-left: 10px;">
+                                            <a id="forward" style="color: white" href="/dashboard/forum/posts/page/">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{> footer }}
+        </div>
+    </body>
+</html>
